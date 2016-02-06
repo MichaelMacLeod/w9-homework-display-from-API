@@ -1,37 +1,39 @@
-var Map = function(latLng, zoomLevel){
-  this.googleMap = new google.maps.Map(document.getElementById('map'),{
+var Map = function(latLng){
+  this.googleMap = new google.maps.Map(document.querySelector('#map'), {
     center: latLng,
-    zoom: zoomLevel
-  }),
-  this.addMarker = function(latLng, title, icon){
+    zoom: 5
+  });
+};
+
+Map.prototype = {
+  setCentre: function(latLng){
+    this.googleMap.latLng;
+  },
+  addMarker: function(latLng, title, icon){
     var marker = new google.maps.Marker({
-      position: latLng,
       map: this.googleMap,
+      position: latLng,
       title: title,
-      icon: icon,
+      icon: icon, 
       animation: google.maps.Animation.DROP
     });
     return marker;
   },
-  this.bindClick = function(){
+  bindClick: function(){
       google.maps.event.addListener(this.googleMap, 'click', function(event){
         this.addInfoWindow(
-          {lat: event.latLng.lat(), lng: event.latLng.lng()}, 
-          "You are here!", 
-          "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png");
+          {lat: event.latLng.lat(), lng: event.latLng.lng()});
       }.bind(this));
     },
-  this.setCentre = function(latLng){
-    this.googleMap.setCenter(latLng);
-  },
-  this.addInfoWindow = function(latLng, title, icon){
-    var marker = this.addMarker(latLng, title, icon);
+
+  addInfoWindow: function(latLng, country, icon){
+    var marker = this.addMarker(latLng, country.name, icon);
     marker.addListener('click', function(){
       var infoWindow = new google.maps.InfoWindow({
-        content: this.title
+        content: '<h3>' + country.name + '</h3><h4>' + country.population + '</h4>'
       });
       infoWindow.open(this.map, marker);
     });
+  },
 
-  }
 }

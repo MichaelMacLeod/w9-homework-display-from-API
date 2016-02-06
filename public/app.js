@@ -14,7 +14,7 @@ window.onload = function () {
       // var image: "";
       // map.addMarker(centre, "");
       // map.addMarker(CodeClan, "");
-      map.bindClick();
+      // map.bindClick();
       // var locator = new GeoLocator(map);
       // locator.setMapCentre();
 
