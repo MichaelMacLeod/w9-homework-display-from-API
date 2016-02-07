@@ -5,6 +5,7 @@ window.onload = function () {
 
     //setup map
     var map = new Map();
+    // var chart = new piechart();
 
     //link change on select to update detail view
     countrySelectView.onChange = function(country){
