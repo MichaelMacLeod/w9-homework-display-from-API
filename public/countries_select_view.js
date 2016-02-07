@@ -17,10 +17,11 @@ CountrySelectView.prototype = {
     this.countries = countries;
     var index = 0;
     this.countries.forEach(function(country){
-      console.log('addingcountry as', country);
+      // console.log('addingcountry as', country);
       this.addOption(country, index);
       index++;
     }.bind(this));
+    console.log(this.countries);
   },
   addOption:function(country, index){
     var option = document.createElement("option");

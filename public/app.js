@@ -3,23 +3,29 @@ window.onload = function () {
     var countrySelectView = new CountrySelectView(document.querySelector('#countries'));
     var countryDetailView = new CountryDetailView(document.querySelector('#info'));
 
+    //setup map
+    var map = new Map();
+
     //link change on select to update detail view
     countrySelectView.onChange = function(country){
       countryDetailView.display(country);
       lastCountry.save(country);
-    }
-      var centre = {lat: 33, lng: 65};
-      var zoomLevel = 12;
-      var map = new Map(centre, zoomLevel);
-      // var image: "";
-      // map.addMarker(centre, "");
-      // map.addMarker(CodeClan, "");
-      // map.bindClick();
-      // var locator = new GeoLocator(map);
-      // locator.setMapCentre();
+      console.log(map.markers);
 
-      map.addInfoWindow(centre, "<h1>HELLOOOOO?</h1>");
-    
+      latLng = {
+        lat: country.latlng[0],
+        lng: country.latlng[1]
+      }
+      icon = {
+        url: "http://www.geoips.com//assets/img/flag/128h/" + country.alpha2Code.toLowerCase() + ".png",
+        scaledSize: new google.maps.Size(32, 20),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(0, 0)
+      }
+      map.setCenter(latLng);
+      map.addInfoWindow(latLng, country.name, icon);
+
+    }
 
     //setup country list model
     var world = new CountryList();
@@ -31,6 +37,12 @@ window.onload = function () {
       if(savedCountry){
         countrySelectView.setSelectedIndex(savedCountry.index);
         countryDetailView.display(savedCountry);
+        latLng = {
+          lat: savedCountry.latlng[0],
+          lng: savedCountry.latlng[1]
+        }
+        map.setCenter(latLng);
+
       }
 
     };
@@ -39,3 +51,4 @@ window.onload = function () {
     world.populate();
 
 };
+
