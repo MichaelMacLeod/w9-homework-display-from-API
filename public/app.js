@@ -18,6 +18,7 @@ window.onload = function () {
         lng: country.latlng[1]
       }
       icon = {
+        //thanks to Oscar for this bit!======= 
         url: "http://www.geoips.com//assets/img/flag/128h/" + country.alpha2Code.toLowerCase() + ".png",
         scaledSize: new google.maps.Size(32, 20),
         origin: new google.maps.Point(0, 0),
